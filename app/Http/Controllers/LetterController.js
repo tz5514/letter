@@ -68,6 +68,7 @@ class LetterController {
         message.from('mrtanakabab@gmail.com', '中央大學 資訊工程學系 - 甄試入學')
         message.subject(`中央大學 資訊工程學系 - 甄試入學電子推薦函邀請信件 - ${letter.professorName}`);
       });
+      console.log(`${letter.professorName}: ${letter.professorMail} / ${letter.letterID} 已寄出`);
     }
 
     response.json(letterList);
