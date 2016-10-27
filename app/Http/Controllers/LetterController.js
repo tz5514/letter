@@ -64,7 +64,7 @@ class LetterController {
 
     for (let letter of letterList) {
       yield Mail.send('emails.recommendation', letter, (message) => {
-        message.to('joeandy569@gmail.com')
+        message.to(letter.professorMail)
         message.from('mrtanakabab@gmail.com', '中央大學 資訊工程學系 - 甄試入學')
         message.subject(`中央大學 資訊工程學系 - 甄試入學電子推薦函邀請信件 - ${letter.professorName}`);
       });
