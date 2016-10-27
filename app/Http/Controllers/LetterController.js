@@ -36,6 +36,7 @@ class LetterController {
 
     let letterList = [];
     const deadline = '2016/10/30';
+    const SEtext = (type == 'se') ? ' 軟體工程' : '';
 
     if (professor1 == info.R_name || professor2 == info.R_name) {
       const letterID = (yield StudentRecommendationTeacherInfo.query().where('S_id', studentID).where('R_index', 1).first()).T_id;
@@ -46,7 +47,7 @@ class LetterController {
         letterID,
         deadline,
         type,
-        SEtext: ''
+        SEtext
       });
     }
     if (professor1 == info.R_name1 || professor2 == info.R_name1) {
@@ -58,7 +59,7 @@ class LetterController {
         letterID,
         deadline,
         type,
-        SEtext: ' 軟體工程'
+        SEtext
       });
     };
 
