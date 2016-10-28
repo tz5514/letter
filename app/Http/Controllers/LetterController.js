@@ -10,7 +10,7 @@ const Mail = use('Mail')
 
 class LetterController {
   * send (request, response) {
-    const { type, account, professor1, professor2 } = request.all();
+    const { type, account, professor1, professor2, both } = request.all();
     const classHash = {
       csie: {
         StudentAccount: StudentAccountCSIE,
@@ -37,8 +37,8 @@ class LetterController {
     let letterList = [];
     const deadline = '2016/10/30';
     const SEtext = (type == 'se') ? ' 軟體工程' : '';
-
-    if (professor1 == info.R_name || professor2 == info.R_name) {
+    console.log(studentID);
+    if (both || professor1 == info.R_name || professor2 == info.R_name) {
       const letterID = (yield StudentRecommendationTeacherInfo.query().where('S_id', studentID).where('R_index', 1).first()).T_id;
       letterList.push({
         professorName: info.R_name,
@@ -50,7 +50,8 @@ class LetterController {
         SEtext
       });
     }
-    if (professor1 == info.R_name1 || professor2 == info.R_name1) {
+
+    if (both || professor1 == info.R_name1 || professor2 == info.R_name1) {
       const letterID = (yield StudentRecommendationTeacherInfo.query().where('S_id', studentID).where('R_index', 2).first()).T_id;
       letterList.push({
         professorName: info.R_name1,
@@ -61,7 +62,9 @@ class LetterController {
         type,
         SEtext
       });
-    };
+    }
+
+
 
     for (let letter of letterList) {
       yield Mail.send('emails.recommendation', letter, (message) => {
